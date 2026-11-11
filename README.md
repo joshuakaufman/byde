@@ -50,7 +50,7 @@ Only a timer that runs to the end counts as a session. Ending early leaves the d
 
 ## Install
 
-### Homebrew (available from v1.0)
+### Homebrew
 
 ```
 brew install --cask joshuakaufman/tap/byde
@@ -58,9 +58,9 @@ brew install --cask joshuakaufman/tap/byde
 
 Byde is not notarised by Apple. The cask removes the macOS quarantine flag so the app opens normally. If you would rather not do that, use the DMG below.
 
-### Download (available from v1.0)
+### Download
 
-1. Download the DMG from [GitHub Releases](https://github.com/joshuakaufman/byde/releases).
+1. Download the DMG from [GitHub Releases](https://github.com/joshuakaufman/byde/releases), for example [Byde 1.0](https://github.com/joshuakaufman/byde/releases/tag/v1.0).
 2. Drag Byde to Applications.
 3. Open Byde. macOS shows a warning. Dismiss it.
 4. Open System Settings, go to Privacy & Security, and click Open Anyway next to the message about Byde.
