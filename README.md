@@ -10,14 +10,14 @@ I already had a habit tracker with reminders, but due to busyness I often swiped
 
 ## Screenshots
 
-<img src="docs/screenshots/nudge.png" alt="The nudge panel" width="378">
 **The nudge panel**
+<img src="docs/screenshots/nudge.png" alt="The nudge panel" width="378">
 
-<img src="docs/screenshots/settings.png" alt="Settings" width="586">
 **Settings**
+<img src="docs/screenshots/settings.png" alt="Settings" width="586">
 
-<img src="docs/screenshots/menu.png" alt="The menu bar menu" width="341">
 **The menu bar menu**
+<img src="docs/screenshots/menu.png" alt="The menu bar menu" width="341">
 
 ## How it works
 
@@ -42,7 +42,7 @@ If the window is shorter than 20 minutes, you get the first nudge only. If your 
 
 Only a timer that runs to the end counts as a session. Ending early leaves the day as it was.
 
-**Meditation website (optional).** In Settings you can add the address of your meditation app or website. A button for it then appears on the nudge panel, and in the menu under Meditate now. Opening it counts as meditating for the day. Byde fetches the site's name and icon once, when you save the address.
+**Meditation website (optional).** In Settings you can add the address of your meditation app or website. (Apps that have websites include Waking Up, Headspace and Calm.) A button for it then appears on the nudge panel, and in the menu under Meditate now. Opening it counts as meditating for the day. Byde fetches the site's name and icon once, when you save the address.
 
 **Meditate now.** The menu bar menu has a Meditate now item (3, 5 or 10 minutes). It works at any time, on any day, inside or outside the window.
 
