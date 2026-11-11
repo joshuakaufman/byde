@@ -1,0 +1,26 @@
+# Xcode
+build/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+*.xcscmblueprint
+*.moved-aside
+
+# Swift Package Manager (Package.resolved stays tracked)
+.build/
+.swiftpm/
+
+# Built apps and release output
+*.app
+dist/
+*.dmg
+
+# macOS
+.DS_Store
+
+# Local Claude Code settings
+.claude/settings.local.json
+
+# Logs
+*.log
+*.jsonl
