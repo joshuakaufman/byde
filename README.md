@@ -1,6 +1,6 @@
 # Byde
 
-A gentle nudge to meditate, once a day, inside a window you choose.
+A free app that gives you a gentle nudge to meditate, once a day, inside a window you choose.
 
 ## Why I built it
 
