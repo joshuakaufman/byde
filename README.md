@@ -10,13 +10,13 @@ I already had a habit tracker with reminders, but due to busyness I often swiped
 
 ## Screenshots
 
-![The nudge panel](docs/screenshots/nudge.png)
+<img src="docs/screenshots/nudge.png" alt="The nudge panel" width="378">
 *The nudge panel.*
 
-![Settings](docs/screenshots/settings.png)
+<img src="docs/screenshots/settings.png" alt="Settings" width="586">
 *Settings.*
 
-![The menu bar menu](docs/screenshots/menu.png)
+<img src="docs/screenshots/menu.png" alt="The menu bar menu" width="341">
 *The menu bar menu.*
 
 ## How it works
