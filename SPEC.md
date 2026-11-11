@@ -25,7 +25,7 @@ A single custom pane (no tabs, no toolbar, not the default Form look). The title
 The page and icon fetches are the only network access in Byde. The app is not sandboxed (ad-hoc signed), so no network entitlement is needed.
 
 ## About window
-Menu → **About Byde** opens one small fixed-size, non-resizable window (a single instance; reopening brings it to the front), centred on screen when it opens. Same style as Settings: near-white background in light mode and the same dark colours, transparent title bar with no separator, no visible title text. Centred contents, in order: the app icon (96 pt), "Byde" (28 pt semibold), "Version [CFBundleShortVersionString] ([CFBundleVersion])" in secondary colour read from the bundle (currently "Version 1.0 (1)"; `build.sh` writes both keys into Info.plist), "A gentle nudge to meditate, once a day, inside a window you choose.", and "© 2026 Joshua Kaufman" in small text, where "© 2026" is secondary and "Joshua Kaufman" is a link-style accent-coloured button that opens https://joshuakaufman.org in the default browser. Escape and Cmd-W close it.
+Menu → **About Byde** opens one small fixed-size, non-resizable window (a single instance; reopening brings it to the front), centred on screen when it opens. Same style as Settings: near-white background in light mode and the same dark colours, transparent title bar with no separator, no visible title text. Centred contents, in order: the app icon (96 pt), "Byde" (28 pt semibold), "Version [CFBundleShortVersionString] ([CFBundleVersion])" in secondary colour read from the bundle (currently "Version 1.0 (2)"; `build.sh` writes both keys into Info.plist), "A gentle nudge to meditate, once a day, inside a window you choose.", and "© 2026 Joshua Kaufman" in small text, where "© 2026" is secondary and "Joshua Kaufman" is a link-style accent-coloured button that opens https://joshuakaufman.org in the default browser. Escape and Cmd-W close it.
 
 ## Nudge schedule
 On enabled days, while the window is open and no session has been completed and today hasn't been skipped:
@@ -59,6 +59,16 @@ On enabled days, while the window is open and no session has been completed and 
 Exists only in Debug builds (`swift build`); Release builds (`./build.sh`) have no Debug submenu and none of its code (it is wrapped in `#if DEBUG`). The `--selftest` launch flag is not part of it and ships in both.
 
 Show today's nudge schedule (times for nudges 1–3 for the current window, plus today's state) · Icon: show waiting / Icon: show done (preview the menu bar icon without changing today's state; the next real state change overrides the preview) · Nudge 1 / 2 / 3 · Refetch favicon (fetches the icon again for the current link) · Reset today · Reveal log (opens the log folder). Panel triggers ignore the window and hold off the scheduler until answered.
+
+## Releasing a new version
+1. Pull from main before releasing, in case the README was edited on GitHub.
+2. Run `scripts/release.sh <version>`. It writes the version into `build.sh`, bumps the build number, builds and ad-hoc signs `Byde.app`, and makes `dist/<version>/Byde-<version>.dmg`. It prints the DMG's SHA-256. Do not rebuild the DMG afterwards, as that changes the hash.
+3. Commit and push the `build.sh` change.
+4. Create the GitHub Release with the DMG attached: `gh release create v<version> dist/<version>/Byde-<version>.dmg --repo joshuakaufman/byde --target main --title "Byde <version>" --notes-file <notes>`. The notes include the first-launch steps (System Settings → Privacy & Security → Open Anyway) and the SHA-256.
+5. In the `joshuakaufman/homebrew-tap` repo, update `version` and `sha256` in `Casks/byde.rb`, run `brew style` and `brew audit --cask --online` on it, then commit and push.
+6. Check with `brew install --cask joshuakaufman/tap/byde` (or `brew upgrade`) and `xattr -l /Applications/Byde.app`, which should show no `com.apple.quarantine`.
+
+`dist/` and `*.dmg` are ignored by git; never commit the DMG.
 
 ## Out of scope
 Analytics UI, multiple daily targets, calendar access, network.
