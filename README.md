@@ -1,6 +1,6 @@
 # Byde
 
-A free app that nudges you to meditate inside a window you choose.
+A free macOS app that nudges you to meditate inside a window you choose.
 
 ## Why I built it
 
