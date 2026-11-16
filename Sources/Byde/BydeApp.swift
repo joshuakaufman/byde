@@ -192,6 +192,7 @@ struct SettingsView: View {
     @AppStorage("days") private var days = "2,3,4,5,6"
     @AppStorage("startMin") private var startMin = 660
     @AppStorage("endMin") private var endMin = 780
+    @AppStorage("showTimerButtons") private var showTimerButtons = true
     @ObservedObject private var link = LinkStore.shared
     @State private var site = LinkStore.shared.url
     @FocusState private var siteFocused: Bool
@@ -208,7 +209,7 @@ struct SettingsView: View {
                 row("Window ends") { DatePicker("", selection: time($endMin), displayedComponents: .hourAndMinute).labelsHidden().datePickerStyle(.stepperField) }
                 if endMin <= startMin { note("The window must end after it starts.") }
             }
-            card(footer: "Opens your meditation app instead of the built-in timer.") {
+            card(footer: !link.isSet ? nil : showTimerButtons ? "Website and timers will appear in the nudge panel." : "Only website will appear in the nudge panel.") {
                 row("Website (optional)") {
                     HStack(spacing: 6) {
                         TextField("e.g. app.wakingup.com", text: $site)
@@ -235,6 +236,12 @@ struct SettingsView: View {
                         Text(link.label.isEmpty ? " " : link.label)
                             .opacity(0)
                             .overlay(TextField("", text: $link.label).textFieldStyle(.plain).disabled(!link.isSet))
+                    }
+                }
+                if link.isSet {
+                    divider
+                    row("Show timers") {
+                        Toggle("", isOn: $showTimerButtons).labelsHidden().toggleStyle(.switch).tint(Theme.accent)
                     }
                 }
             }

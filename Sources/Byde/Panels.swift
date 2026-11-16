@@ -4,6 +4,7 @@ import SwiftUI
 /// Floating, non-activating: never takes keyboard focus from whatever you're doing.
 final class FloatPanel: NSPanel {
     let host: NSHostingView<AnyView>
+    private var centred = false
 
     init(_ view: AnyView) {
         host = NSHostingView(rootView: view)
@@ -17,6 +18,13 @@ final class FloatPanel: NSPanel {
         hasShadow = true
         isReleasedWhenClosed = false
         collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary, .stationary]
+        // A settings change (such as hiding the timer buttons) refits a panel that is already showing.
+        NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: .main) { [weak self] _ in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                guard let self, self.isVisible else { return }
+                self.present(center: self.centred, animate: false)
+            }
+        }
     }
 
     override var canBecomeKey: Bool { false }
@@ -25,6 +33,7 @@ final class FloatPanel: NSPanel {
     /// Bottom-right of the main screen's visible frame (so above the Dock), or centred.
     func present(center: Bool, animate: Bool) {
         guard let v = NSScreen.main?.visibleFrame else { return }
+        centred = center
         host.layoutSubtreeIfNeeded()
         let size = host.fittingSize
         let origin = center
@@ -101,6 +110,7 @@ private extension View {
 struct NudgeView: View {
     @ObservedObject var e = Engine.shared
     @ObservedObject var link = LinkStore.shared
+    @AppStorage("showTimerButtons") private var showTimerButtons = true
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
@@ -127,8 +137,10 @@ struct NudgeView: View {
                     }
                     .buttonStyle(Filled())
                 }
-                HStack(spacing: 8) {
-                    ForEach([3, 5, 10], id: \.self) { n in Button("\(n) min") { e.meditate(n) }.buttonStyle(Filled(tonal: link.isSet)) }
+                if showTimerButtons || !link.isSet {
+                    HStack(spacing: 8) {
+                        ForEach([3, 5, 10], id: \.self) { n in Button("\(n) min") { e.meditate(n) }.buttonStyle(Filled(tonal: link.isSet)) }
+                    }
                 }
             }
             HStack(spacing: 18) {
